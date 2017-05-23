@@ -1,0 +1,22 @@
+---
+- hosts: all
+  name: Disable Linux Firewall
+
+  tasks:
+
+  - name: Stop and disable firewalld.
+    service:
+      name: firewalld
+      state: stopped
+      enabled: False
+
+  - name: disable SELinux
+    selinux:
+      policy: targeted
+      state: permissive
+
+  - name: install Visual software
+    yum: pkg="{{item}}" state=installed
+    with_items:
+     - net-tools
+     - vim-enhanced

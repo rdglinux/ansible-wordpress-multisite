@@ -1,0 +1,38 @@
+---
+- hosts: all
+  name: Disable Linux Firewall
+
+  tasks:
+
+  - name: install Apache + php
+    yum: pkg="{{item}}" state=installed
+    with_items:
+     - httpd
+     - php
+     - php-common
+     - php-gd
+     - php-mbstring
+     - php-mysql
+     - php-xml
+     - php-bcmath.x86_64
+     - php-cli
+     - php-dba
+     - php-devel
+     - php-embedded
+     - php-enchant
+     - php-fpm
+
+  - name: Start apache
+    service:
+      name: httpd
+      state: started
+      enabled: True
+
+  - name: Permissão
+    file:
+      path: /var/www/html/wordpress
+      recurse: yes
+      state: directory
+      mode: 0755
+      owner: apache
+      group: apache

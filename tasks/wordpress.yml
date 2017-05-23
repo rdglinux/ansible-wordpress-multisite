@@ -1,0 +1,12 @@
+---
+- hosts: all
+  name: Disable Linux Firewall
+
+  tasks:
+
+  - name: Download Wordpress
+    unarchive:
+      src: https://wordpress.org/latest.tar.gz
+      dest: /var/www/html
+      remote_src: True
+
